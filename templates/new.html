@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uzumaki Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: url("{{ url_for('static', filename='images/o.jpg') }}") ;
+        
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+
+        header {
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+
+       
+
+        .container {
+            width: 90%;
+            margin: 100px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content {
+            width: 50%;
+        }
+
+       .content h1 {
+            font-size: 50px;
+            font-weight: 700;
+            color: #FFD700;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+            margin-bottom: 10px;  
+            margin-top: 130px; 
+    
+}
+
+        .content p:first-of-type {
+            font-size: 20px;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 10px;  
+            font-style: italic;
+            font-weight: bold;
+            text-align: justify;
+}
+
+        .content p:first-of-type .author {
+            display: block;
+            text-align: right; 
+            font-size: 18px;
+            color: #ddd;
+            margin-top: 10px;
+}
+
+        .content p:nth-of-type(2) {
+            font-size: 20px;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 9px;  
+            font-weight: bold;
+            padding-top: 0%;
+}
+
+        .chat-box {
+            width: 40%;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 500px;
+        }
+
+        .chat-header {
+            background-color: #f2a30b;
+            padding: 15px;
+            color: white;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .chat-header img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .chat-header .icons img {
+            width: 20px;
+            height: 20px;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+
+        .chat-header .icons img.call-icon,
+        .chat-header .icons img.video-icon {
+            filter: brightness(0) saturate(100%) invert(81%) sepia(75%) saturate(750%) hue-rotate(0deg) brightness(102%) contrast(102%);
+        }
+
+        .chat-body {
+            padding: 15px;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .chat-message {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .chat-message.bot {
+            justify-content: flex-start;
+        }
+
+        .chat-message.user {
+            justify-content: flex-end;
+        }
+
+        .chat-message .message {
+            max-width: 70%;
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+
+        .chat-message.bot .message {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .chat-message.user .message {
+            background-color: #f2a30b;
+            color: #fff;
+        }
+
+        .input-box {
+            display: flex;
+        }
+
+        .input-box input {
+            width: 80%;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        .input-box button {
+            width: 20%;
+            padding: 10px;
+            border-radius: 20px;
+            background-color: #f2a30b;
+            color: #fff;
+            border: none;
+            margin-left: 10px;
+        }
+
+        
+        .message-box {
+            margin-top: 10px;
+            padding: 10px;
+            max-width: 70%;
+            color: #333;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="content">
+            
+            
+            <h1>Welcome to <span>Uzumaki Chatbot</span></h1>
+            <p >“The pain of being alone is completely out of this world, isn’t it? I don’t know why, but I understand your feelings so much, it actually hurts.”<br> <span class="author">~Uzumaki Naruto</span></p>
+           
+        </div>
+
+        <div class="chat-box">
+            <div class="chat-header">
+                <div style="display: flex; align-items: center;">
+                    <img src="{{ url_for('static', filename='images/new.jpg') }}" alt="Bot Avatar">
+
+                    <span style="margin-left: 10px;">Uzumaki Naruto</span>
+                </div>
+                <div class="icons">
+                    <img src="{{ url_for('static', filename='images/call.png') }}" alt="Call" class="call-icon">
+                    <img src="{{ url_for('static', filename='images/video-camera.png') }}" alt="Video" class="video-icon">
+                </div>
+            </div>
+
+            <div class="chat-body" id="chat-body">
+                
+                <div class="chat-message user">
+                    <div class="message">Hey, I have a question</div>
+                </div>
+                <div class="chat-message bot">
+                    <div class="message">I am Uzumaki Naruto. what can I do for you?</div>
+                </div>
+                
+            </div>
+
+            <div class="input-box">
+                <input type="text" id="user-input" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+
+           
+            <div id="message-box" class="message-box"></div>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (userInput) {
+                
+                const chatBody = document.getElementById('chat-body');
+                const newMessage = document.createElement('div');
+                newMessage.classList.add('chat-message', 'user');
+                newMessage.innerHTML = `<div class="message">${userInput}</div>`;
+                chatBody.appendChild(newMessage);
+                chatBody.scrollTop = chatBody.scrollHeight; // Scroll to bottom
+
+                fetch("/get", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: `msg=${encodeURIComponent(userInput)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            
+            const botMessage = document.createElement('div');
+            botMessage.classList.add('chat-message','bot');
+            botMessage.innerHTML = `<div class="message">${data}</div>`;
+            chatBody.appendChild(botMessage);
+            chatBody.scrollTop = chatBody.scrollHeight;
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+                
+                const messageBox = document.getElementById('message-box');
+               
+
+               
+                document.getElementById('user-input').value = '';
+            }
+        }
+    </script>
+
+</body>
+</html>
